@@ -3,58 +3,118 @@
 
 <div id="canvas-container"></div>
 <div class="hud" aria-label="Fractal controls">
-  <section class="panel fractal-list">
-    <header>
-      <p class="kicker">Fractal Art</p>
-      <h1>Realtime Fractal Lab</h1>
-      <p class="hint">Drag to orbit, scroll to zoom</p>
-    </header>
-    <div class="button-grid">
-      <button data-type="0">Mandelbulb</button>
-      <button data-type="1">Menger Sponge</button>
-      <button data-type="2">Mandelbox</button>
-      <button data-type="3">Sierpinski</button>
-      <button data-type="4">Apollonian</button>
-      <button data-type="5">Julia 3D</button>
-      <button data-type="6">Kaleidoscopic</button>
-      <button data-type="7">Infinite Grid</button>
-      <button data-type="8">Torus Fold</button>
-      <button data-type="9">Octahedron</button>
-      <button data-type="10">Hyper-Gasket</button>
-    </div>
-  </section>
+  <div class="panel-shell panel-shell-left" id="fractal-shell" data-docked="false">
+    <button
+      class="panel-handle"
+      type="button"
+      data-toggle-shell="fractal-shell"
+      data-open-label="Hide"
+      data-closed-label="Fractals"
+      aria-controls="fractal-shell"
+      aria-expanded="true"
+      title="Toggle fractal menu"
+    >
+      Hide
+    </button>
+    <section class="panel fractal-list">
+      <header class="panel-header">
+        <div>
+          <p class="kicker">Fractal Art</p>
+          <h1>Realtime Fractal Lab</h1>
+          <p class="hint">Drag to orbit, scroll to zoom</p>
+        </div>
+        <button
+          class="panel-minimize"
+          type="button"
+          data-toggle-shell="fractal-shell"
+          data-open-label="Hide"
+          data-closed-label="Show"
+          aria-controls="fractal-shell"
+          aria-expanded="true"
+          title="Minimize fractal menu"
+        >
+          Hide
+        </button>
+      </header>
+      <div class="panel-body">
+        <div class="button-grid">
+          <button data-type="0">Mandelbulb</button>
+          <button data-type="1">Menger Sponge</button>
+          <button data-type="2">Mandelbox</button>
+          <button data-type="3">Sierpinski</button>
+          <button data-type="4">Apollonian</button>
+          <button data-type="5">Julia 3D</button>
+          <button data-type="6">Kaleidoscopic</button>
+          <button data-type="7">Infinite Grid</button>
+          <button data-type="8">Torus Fold</button>
+          <button data-type="9">Octahedron</button>
+          <button data-type="10">Hyper-Gasket</button>
+        </div>
+      </div>
+    </section>
+  </div>
 
-  <section class="panel params-panel">
-    <div class="label">Parameters</div>
-    <div class="param-group">
-      <label>Scale <span id="scale-val">1.00</span></label>
-      <input type="range" id="param-scale" min="0.1" max="3.0" step="0.01" value="1.0" />
-    </div>
-    <div class="param-group">
-      <label>Iterations <span id="iter-val">8</span></label>
-      <input type="range" id="param-iter" min="1" max="16" step="1" value="8" />
-    </div>
-    <div class="param-group">
-      <label>Morphism <span id="morph-val">0.00</span></label>
-      <input type="range" id="param-morph" min="-1.0" max="1.0" step="0.01" value="0.0" />
-    </div>
-    <div class="param-group">
-      <label>Bloom <span id="bloom-val">0.95</span></label>
-      <input type="range" id="param-bloom" min="0.0" max="3.0" step="0.05" value="0.95" />
-    </div>
-    <div class="param-group">
-      <label>Glow <span id="glow-val">0.45</span></label>
-      <input type="range" id="param-glow" min="0.0" max="1.2" step="0.01" value="0.45" />
-    </div>
-    <div class="param-group">
-      <label>Quality <span id="quality-val">1.00</span></label>
-      <input type="range" id="param-quality" min="0.65" max="1.3" step="0.01" value="1.0" />
-    </div>
-    <label class="checkbox-row">
-      <input type="checkbox" id="param-auto-quality" checked />
-      <span>Auto quality</span>
-    </label>
-  </section>
+  <div class="panel-shell panel-shell-right" id="params-shell" data-docked="false">
+    <button
+      class="panel-handle"
+      type="button"
+      data-toggle-shell="params-shell"
+      data-open-label="Hide"
+      data-closed-label="Controls"
+      aria-controls="params-shell"
+      aria-expanded="true"
+      title="Toggle controls menu"
+    >
+      Hide
+    </button>
+    <section class="panel params-panel">
+      <header class="panel-header panel-header-compact">
+        <div class="label">Parameters</div>
+        <button
+          class="panel-minimize"
+          type="button"
+          data-toggle-shell="params-shell"
+          data-open-label="Hide"
+          data-closed-label="Show"
+          aria-controls="params-shell"
+          aria-expanded="true"
+          title="Minimize controls menu"
+        >
+          Hide
+        </button>
+      </header>
+      <div class="panel-body">
+        <div class="param-group">
+          <label>Scale <span id="scale-val">1.00</span></label>
+          <input type="range" id="param-scale" min="0.1" max="3.0" step="0.01" value="1.0" />
+        </div>
+        <div class="param-group">
+          <label>Iterations <span id="iter-val">8</span></label>
+          <input type="range" id="param-iter" min="1" max="16" step="1" value="8" />
+        </div>
+        <div class="param-group">
+          <label>Morphism <span id="morph-val">0.00</span></label>
+          <input type="range" id="param-morph" min="-1.0" max="1.0" step="0.01" value="0.0" />
+        </div>
+        <div class="param-group">
+          <label>Bloom <span id="bloom-val">0.95</span></label>
+          <input type="range" id="param-bloom" min="0.0" max="3.0" step="0.05" value="0.95" />
+        </div>
+        <div class="param-group">
+          <label>Glow <span id="glow-val">0.45</span></label>
+          <input type="range" id="param-glow" min="0.0" max="1.2" step="0.01" value="0.45" />
+        </div>
+        <div class="param-group">
+          <label>Quality <span id="quality-val">1.00</span></label>
+          <input type="range" id="param-quality" min="0.65" max="1.3" step="0.01" value="1.0" />
+        </div>
+        <label class="checkbox-row">
+          <input type="checkbox" id="param-auto-quality" checked />
+          <span>Auto quality</span>
+        </label>
+      </div>
+    </section>
+  </div>
 </div>
 
 <style>
@@ -90,23 +150,108 @@
     padding: clamp(0.7rem, 1.2vw, 1rem);
   }
 
-  .panel {
+  .panel-shell {
+    position: relative;
     pointer-events: auto;
-    width: min(30rem, 42vw);
+    transition: transform 240ms ease;
+    min-width: 0;
+  }
+
+  .panel-shell-left[data-docked='true'] {
+    transform: translateX(calc(-100% + 2.75rem));
+  }
+
+  .panel-shell-right[data-docked='true'] {
+    transform: translateX(calc(100% - 2.75rem));
+  }
+
+  .panel-handle,
+  .panel-minimize {
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: linear-gradient(180deg, rgba(20, 29, 44, 0.88), rgba(8, 12, 20, 0.88));
+    color: var(--muted);
+    border-radius: 0.52rem;
+    font-family: 'IBM Plex Mono', 'JetBrains Mono', 'SFMono-Regular', monospace;
+    font-size: 0.64rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .panel-handle {
+    position: absolute;
+    top: 0.72rem;
+    z-index: 20;
+    padding: 0.42rem 0.48rem;
+    min-width: 2.5rem;
+    transition: color 130ms ease, border-color 130ms ease, background 130ms ease;
+  }
+
+  .panel-shell-left .panel-handle {
+    right: -2.72rem;
+    border-radius: 0 0.52rem 0.52rem 0;
+  }
+
+  .panel-shell-right .panel-handle {
+    left: -2.72rem;
+    border-radius: 0.52rem 0 0 0.52rem;
+  }
+
+  .panel-handle:hover,
+  .panel-minimize:hover {
+    color: var(--text);
+    border-color: var(--line-strong);
+  }
+
+  .panel {
     background: linear-gradient(145deg, rgba(18, 24, 38, 0.8), rgba(9, 13, 21, 0.72));
     border: 1px solid var(--line);
     backdrop-filter: blur(14px);
     border-radius: 0.9rem;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.07);
-    padding: 0.95rem;
+    padding: 0.85rem;
+    min-width: 0;
   }
 
   .fractal-list {
-    max-width: 30rem;
+    width: min(16.25rem, 38vw);
   }
 
   .params-panel {
-    width: min(19rem, 44vw);
+    width: min(18rem, 40vw);
+  }
+
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .panel-header-compact {
+    align-items: center;
+    margin-bottom: 0.4rem;
+  }
+
+  .panel-minimize {
+    padding: 0.4rem 0.46rem;
+    align-self: flex-start;
+    flex-shrink: 0;
+  }
+
+  .panel-body {
+    overflow: auto;
+    transition: opacity 190ms ease, max-height 240ms ease, margin-top 240ms ease;
+    max-height: 80vh;
+  }
+
+  .panel-shell[data-docked='true'] .panel-body {
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+    pointer-events: none;
   }
 
   header h1 {
@@ -134,7 +279,7 @@
   }
 
   .hint {
-    margin: 0.2rem 0 0.75rem;
+    margin: 0.2rem 0 0.65rem;
     color: var(--muted);
     font-size: 0.7rem;
   }
@@ -149,19 +294,19 @@
 
   .button-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.45rem;
+    grid-template-columns: 1fr;
+    gap: 0.38rem;
   }
 
   button {
     border: 1px solid rgba(255, 255, 255, 0.16);
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
     color: rgba(236, 246, 255, 0.85);
-    padding: 0.6rem 0.7rem;
+    padding: 0.52rem 0.62rem;
     text-align: left;
     border-radius: 0.55rem;
     font-family: 'Space Grotesk', 'Avenir Next', 'Helvetica Neue', sans-serif;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     letter-spacing: 0.02em;
     cursor: pointer;
     transition: border-color 140ms ease, color 140ms ease, background 140ms ease, transform 140ms ease;
@@ -182,8 +327,8 @@
   .param-group {
     display: flex;
     flex-direction: column;
-    gap: 0.36rem;
-    margin-bottom: 0.8rem;
+    gap: 0.3rem;
+    margin-bottom: 0.66rem;
   }
 
   .param-group label {
@@ -253,23 +398,37 @@
       gap: 0.65rem;
     }
 
+    .panel-shell {
+      width: 100%;
+      transform: none;
+    }
+
+    .panel-shell[data-docked='true'] {
+      transform: none;
+    }
+
+    .panel-handle {
+      position: static;
+      margin-bottom: 0.38rem;
+      border-radius: 0.52rem;
+      align-self: flex-end;
+    }
+
+    .panel-shell-left .panel-handle,
+    .panel-shell-right .panel-handle {
+      left: auto;
+      right: auto;
+    }
+
     .panel,
     .fractal-list,
     .params-panel {
       width: 100%;
       max-width: none;
     }
-
-    .button-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
   }
 
   @media (max-width: 640px) {
-    .button-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
     button {
       font-size: 0.69rem;
       padding: 0.54rem 0.58rem;
@@ -766,6 +925,37 @@
   let controls;
   let clock;
 
+  function setShellDocked(shellId, docked) {
+    const shell = document.getElementById(shellId);
+    if (!shell) return;
+
+    shell.dataset.docked = docked ? 'true' : 'false';
+    const toggles = document.querySelectorAll(`[data-toggle-shell="${shellId}"]`);
+    toggles.forEach((toggle) => {
+      const openLabel = toggle.getAttribute('data-open-label') || 'Hide';
+      const closedLabel = toggle.getAttribute('data-closed-label') || 'Show';
+      toggle.textContent = docked ? closedLabel : openLabel;
+      toggle.setAttribute('aria-expanded', docked ? 'false' : 'true');
+    });
+  }
+
+  function bindPanelToggles() {
+    const toggleButtons = document.querySelectorAll('[data-toggle-shell]');
+    toggleButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const shellId = button.getAttribute('data-toggle-shell');
+        if (!shellId) return;
+        const shell = document.getElementById(shellId);
+        if (!shell) return;
+        const docked = shell.dataset.docked === 'true';
+        setShellDocked(shellId, !docked);
+      });
+    });
+
+    setShellDocked('fractal-shell', false);
+    setShellDocked('params-shell', false);
+  }
+
   function updateRenderScale() {
     const clamped = Math.max(0.65, Math.min(1.3, state.quality));
     const width = window.innerWidth;
@@ -847,6 +1037,8 @@
   }
 
   function bindUI() {
+    bindPanelToggles();
+
     const buttons = document.querySelectorAll('.fractal-list button');
     if (buttons.length > 0) {
       buttons[0].classList.add('active');
