@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "astro": "astro",
-    "deploy": "bun run build && bunx wrangler pages deploy dist"
+    "deploy": "bun run build && bunx wrangler pages deploy dist --project-name fractal-lab"
   },
   "dependencies": {
     "astro": "^5.17.1",
