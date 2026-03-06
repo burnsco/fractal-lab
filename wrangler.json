@@ -1,14 +1,16 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
+  "main": "dist/_worker.js/index.js",
   "name": "fractal-lab",
-  "project_name": "fractal-lab",
-  "account_id": "a7d96d7e3175846d5debffeb2d3a1008",
-  "pages_build_output_dir": "./dist",
-  "compatibility_date": "2026-03-06",
-  "kv_namespaces": [
-    {
-      "binding": "SESSION",
-      "id": "dummy"
-    }
-  ]
+  "compatibility_date": "2026-03-04",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "global_fetch_strictly_public"
+  ],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./dist"
+  },
+  "observability": {
+    "enabled": true
+  }
 }
