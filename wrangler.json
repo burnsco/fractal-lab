@@ -2,6 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "fractal-lab",
   "project_name": "fractal-lab",
+  "account_id": "a7d96d7e3175846d5debffeb2d3a1008",
   "pages_build_output_dir": "./dist",
   "compatibility_date": "2026-03-06",
   "kv_namespaces": [
