@@ -1,4 +1,4 @@
-# fractal-art
+# fractal-lab
 
 A realtime fractal art playground built with Astro and Three.js.
 
