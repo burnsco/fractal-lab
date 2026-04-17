@@ -1,7 +1,17 @@
 ---
 ---
 
-<div id="canvas-container"></div>
+<div id="canvas-container" aria-hidden="true"></div>
+<div class="loading-screen" id="loading-screen" role="status" aria-live="polite">
+  <div class="loading-card">
+    <p class="loading-kicker">Fractal Lab</p>
+    <h2>Preparing the renderer</h2>
+    <p class="loading-copy" id="loading-copy">Loading the scene shell.</p>
+    <div class="loading-bar" aria-hidden="true">
+      <span class="loading-bar-fill"></span>
+    </div>
+  </div>
+</div>
 <div class="hud" aria-label="Fractal controls">
   <div class="panel-shell panel-shell-left" id="fractal-shell" data-docked="false">
     <button
@@ -118,8 +128,6 @@
 </div>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap');
-
   :root {
     --ink-0: #0f131c;
     --ink-1: #171f2f;
@@ -137,6 +145,96 @@
     inset: 0;
     overflow: hidden;
     background: radial-gradient(circle at 15% 10%, #23304a 0%, #121624 45%, #07090f 100%);
+  }
+
+  .loading-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    display: grid;
+    place-items: center;
+    padding: 1.25rem;
+    background:
+      radial-gradient(circle at top, rgba(76, 246, 207, 0.12), transparent 36%),
+      radial-gradient(circle at bottom, rgba(255, 224, 123, 0.1), transparent 28%),
+      rgba(4, 6, 11, 0.96);
+    transition: opacity 280ms ease, visibility 280ms ease;
+  }
+
+  .loading-screen.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .loading-card {
+    width: min(26rem, 100%);
+    padding: 1.25rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: linear-gradient(180deg, rgba(18, 24, 38, 0.9), rgba(7, 10, 18, 0.82));
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(16px);
+  }
+
+  .loading-kicker,
+  .loading-copy {
+    margin: 0;
+    font-family: 'SFMono-Regular', 'IBM Plex Mono', 'JetBrains Mono', 'Menlo', monospace;
+  }
+
+  .loading-kicker {
+    color: var(--accent-hot);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .loading-card h2 {
+    margin: 0.45rem 0 0.35rem;
+    color: var(--text);
+    font-family: 'Avenir Next', 'Space Grotesk', 'Segoe UI', sans-serif;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 650;
+    letter-spacing: 0.01em;
+  }
+
+  .loading-copy {
+    color: var(--muted);
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .loading-bar {
+    margin-top: 0.95rem;
+    height: 0.32rem;
+    border-radius: 999px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .loading-bar-fill {
+    display: block;
+    width: 36%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--accent-hot), var(--accent));
+    animation: loading-sweep 1.05s ease-in-out infinite;
+    transform-origin: left center;
+  }
+
+  @keyframes loading-sweep {
+    0% {
+      transform: translateX(-24%) scaleX(0.72);
+    }
+
+    50% {
+      transform: translateX(118%) scaleX(1);
+    }
+
+    100% {
+      transform: translateX(255%) scaleX(0.8);
+    }
   }
 
   .hud {
@@ -171,7 +269,7 @@
     background: linear-gradient(180deg, rgba(20, 29, 44, 0.88), rgba(8, 12, 20, 0.88));
     color: var(--muted);
     border-radius: 0.52rem;
-    font-family: 'IBM Plex Mono', 'JetBrains Mono', 'SFMono-Regular', monospace;
+    font-family: 'SFMono-Regular', 'IBM Plex Mono', 'JetBrains Mono', 'Menlo', monospace;
     font-size: 0.64rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -261,7 +359,7 @@
 
   header h1 {
     margin: 0;
-    font-family: 'Space Grotesk', 'Avenir Next', 'Helvetica Neue', sans-serif;
+    font-family: 'Avenir Next', 'Space Grotesk', 'Segoe UI', sans-serif;
     letter-spacing: 0.02em;
     font-size: clamp(1rem, 1.9vw, 1.35rem);
     color: var(--text);
@@ -272,7 +370,7 @@
   .label,
   .hint,
   .checkbox-row {
-    font-family: 'IBM Plex Mono', 'JetBrains Mono', 'SFMono-Regular', monospace;
+    font-family: 'SFMono-Regular', 'IBM Plex Mono', 'JetBrains Mono', 'Menlo', monospace;
   }
 
   .kicker {
@@ -310,7 +408,7 @@
     padding: 0.52rem 0.62rem;
     text-align: left;
     border-radius: 0.55rem;
-    font-family: 'Space Grotesk', 'Avenir Next', 'Helvetica Neue', sans-serif;
+    font-family: 'Avenir Next', 'Space Grotesk', 'Segoe UI', sans-serif;
     font-size: 0.7rem;
     letter-spacing: 0.02em;
     cursor: pointer;
@@ -341,12 +439,12 @@
     justify-content: space-between;
     color: var(--text);
     font-size: 0.77rem;
-    font-family: 'Space Grotesk', 'Avenir Next', 'Helvetica Neue', sans-serif;
+    font-family: 'Avenir Next', 'Space Grotesk', 'Segoe UI', sans-serif;
   }
 
   .param-group label span {
     color: var(--muted);
-    font-family: 'IBM Plex Mono', 'JetBrains Mono', 'SFMono-Regular', monospace;
+    font-family: 'SFMono-Regular', 'IBM Plex Mono', 'JetBrains Mono', 'Menlo', monospace;
   }
 
   input[type='range'] {
@@ -434,6 +532,10 @@
   }
 
   @media (max-width: 640px) {
+    .loading-card {
+      padding: 1rem;
+    }
+
     button {
       font-size: 0.69rem;
       padding: 0.54rem 0.58rem;
@@ -443,14 +545,6 @@
 
 <script>
   // @ts-nocheck
-  import * as THREE from 'three';
-  import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
-  import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
-  import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
-  import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
-  import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
-  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-
   const vertexShader = `
     varying vec2 vUv;
     void main() {
@@ -912,13 +1006,22 @@
   };
 
   const state = {
-    basePixelRatio: Math.min(window.devicePixelRatio || 1, 1.6),
-    quality: 1.0,
+    basePixelRatio: Math.min(window.devicePixelRatio || 1, 1.35),
+    quality: 0.72,
     autoQuality: true,
     frameAccumulator: 0,
-    frameSamples: 0
+    frameSamples: 0,
+    postProcessingEnabled: false,
+    bootstrapped: false
   };
 
+  let THREE;
+  let EffectComposer;
+  let RenderPass;
+  let UnrealBloomPass;
+  let OutputPass;
+  let ShaderPass;
+  let OrbitControls;
   let container;
   let scene;
   let camera;
@@ -929,6 +1032,8 @@
   let bloomPass;
   let controls;
   let clock;
+  let loadingScreen;
+  let loadingCopy;
 
   function setShellDocked(shellId, docked) {
     const shell = document.getElementById(shellId);
@@ -965,13 +1070,17 @@
     const clamped = Math.max(0.65, Math.min(1.3, state.quality));
     const width = window.innerWidth;
     const height = window.innerHeight;
-    const pixelRatio = Math.max(0.7, Math.min(1.85, state.basePixelRatio * clamped));
+    const pixelRatio = Math.max(0.68, Math.min(1.6, state.basePixelRatio * clamped));
 
     renderer.setPixelRatio(pixelRatio);
     renderer.setSize(width, height);
-    composer.setSize(width, height);
+    if (composer) {
+      composer.setSize(width, height);
+    }
     material.uniforms.resolution.value.set(width, height);
-    material.uniforms.uTraceBudget.value = Math.round(110 + clamped * 85);
+    material.uniforms.uTraceBudget.value = state.postProcessingEnabled
+      ? Math.round(104 + clamped * 80)
+      : Math.round(84 + clamped * 46);
 
     const qualityEl = document.getElementById('quality-val');
     if (qualityEl) {
@@ -979,8 +1088,115 @@
     }
   }
 
+  function setLoadingState(message) {
+    if (loadingCopy) {
+      loadingCopy.textContent = message;
+    }
+  }
+
+  function hideLoadingScreen() {
+    if (!loadingScreen) return;
+    loadingScreen.classList.add('is-hidden');
+  }
+
+  function waitForFirstPaint() {
+    return new Promise((resolve) => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(resolve);
+      });
+    });
+  }
+
+  function afterIdle(callback, timeout = 320) {
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(callback, { timeout });
+      return;
+    }
+
+    window.setTimeout(callback, 90);
+  }
+
+  async function loadCoreRendererModules() {
+    const [threeModule, orbitControlsModule] = await Promise.all([
+      import('three'),
+      import('three/examples/jsm/controls/OrbitControls.js')
+    ]);
+
+    THREE = threeModule;
+    OrbitControls = orbitControlsModule.OrbitControls;
+  }
+
+  async function loadPostProcessingModules() {
+    if (EffectComposer && RenderPass && UnrealBloomPass && OutputPass && ShaderPass) {
+      return;
+    }
+
+    const [
+      effectComposerModule,
+      renderPassModule,
+      unrealBloomPassModule,
+      outputPassModule,
+      shaderPassModule
+    ] = await Promise.all([
+      import('three/examples/jsm/postprocessing/EffectComposer.js'),
+      import('three/examples/jsm/postprocessing/RenderPass.js'),
+      import('three/examples/jsm/postprocessing/UnrealBloomPass.js'),
+      import('three/examples/jsm/postprocessing/OutputPass.js'),
+      import('three/examples/jsm/postprocessing/ShaderPass.js')
+    ]);
+
+    EffectComposer = effectComposerModule.EffectComposer;
+    RenderPass = renderPassModule.RenderPass;
+    UnrealBloomPass = unrealBloomPassModule.UnrealBloomPass;
+    OutputPass = outputPassModule.OutputPass;
+    ShaderPass = shaderPassModule.ShaderPass;
+  }
+
+  async function enablePostProcessing() {
+    if (state.postProcessingEnabled || !renderer) {
+      return;
+    }
+
+    setLoadingState('Loading cinematic effects.');
+    await loadPostProcessingModules();
+    const renderScene = new RenderPass(scene, orthoCamera);
+    bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.95, 0.35, 0.82);
+    composer = new EffectComposer(renderer);
+    composer.addPass(renderScene);
+    composer.addPass(bloomPass);
+    composer.addPass(new ShaderPass(ChromaticAberrationShader));
+    composer.addPass(new ShaderPass(VignetteShader));
+    composer.addPass(new OutputPass());
+    state.postProcessingEnabled = true;
+    updateRenderScale();
+  }
+
+  function warmUpRenderer() {
+    if (!state.bootstrapped) {
+      return;
+    }
+
+    window.setTimeout(() => {
+      state.quality = Math.max(state.quality, 0.9);
+      void enablePostProcessing().finally(() => {
+        updateRenderScale();
+      });
+    }, 420);
+  }
+
+  function renderFrame() {
+    if (state.postProcessingEnabled && composer) {
+      composer.render();
+      return;
+    }
+
+    renderer.render(scene, orthoCamera);
+  }
+
   function init() {
     container = document.getElementById('canvas-container');
+    loadingScreen = document.getElementById('loading-screen');
+    loadingCopy = document.getElementById('loading-copy');
     if (!container) return;
 
     scene = new THREE.Scene();
@@ -988,7 +1204,12 @@
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
     camera.position.set(0, 0, 4);
 
-    renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+    renderer = new THREE.WebGLRenderer({
+      antialias: false,
+      depth: false,
+      powerPreference: 'high-performance',
+      stencil: false
+    });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.08;
@@ -1012,7 +1233,7 @@
         uIter: { value: 8 },
         uMorph: { value: 0.0 },
         uGlow: { value: 0.45 },
-        uTraceBudget: { value: 190 },
+        uTraceBudget: { value: 118 },
         uCameraPos: { value: new THREE.Vector3() },
         uCameraMatrix: { value: new THREE.Matrix4() }
       },
@@ -1022,28 +1243,36 @@
 
     scene.add(new THREE.Mesh(geometry, material));
 
-    const renderScene = new RenderPass(scene, orthoCamera);
-    bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.95, 0.35, 0.82);
-
-    composer = new EffectComposer(renderer);
-    composer.addPass(renderScene);
-    composer.addPass(bloomPass);
-    composer.addPass(new ShaderPass(ChromaticAberrationShader));
-    composer.addPass(new ShaderPass(VignetteShader));
-    composer.addPass(new OutputPass());
-
     bindUI();
     updateRenderScale();
 
     clock = new THREE.Clock();
     window.addEventListener('resize', onWindowResize);
     document.addEventListener('visibilitychange', onVisibilityChange);
+    renderFrame();
+    state.bootstrapped = true;
+    setLoadingState('Renderer ready. Warming up effects.');
+    hideLoadingScreen();
+    warmUpRenderer();
     animate();
   }
 
-  function bindUI() {
-    bindPanelToggles();
+  function setupSlider(id, onChange, valueId, decimals = 2) {
+    const input = document.getElementById(id);
+    const valueNode = document.getElementById(valueId);
+    if (!input || !valueNode) return;
 
+    const emit = () => {
+      const value = Number(input.value);
+      onChange(value);
+      valueNode.textContent = value.toFixed(decimals);
+    };
+
+    input.addEventListener('input', emit);
+    emit();
+  }
+
+  function bindUI() {
     const buttons = document.querySelectorAll('.fractal-list button');
     if (buttons.length > 0) {
       buttons[0].classList.add('active');
@@ -1062,21 +1291,6 @@
       });
     });
 
-    const setupSlider = (id, onChange, valueId, decimals = 2) => {
-      const input = document.getElementById(id);
-      const valueNode = document.getElementById(valueId);
-      if (!input || !valueNode) return;
-
-      const emit = () => {
-        const value = Number(input.value);
-        onChange(value);
-        valueNode.textContent = value.toFixed(decimals);
-      };
-
-      input.addEventListener('input', emit);
-      emit();
-    };
-
     setupSlider('param-scale', (value) => {
       material.uniforms.uScale.value = value;
     }, 'scale-val');
@@ -1090,7 +1304,9 @@
     }, 'morph-val');
 
     setupSlider('param-bloom', (value) => {
-      bloomPass.strength = value;
+      if (bloomPass) {
+        bloomPass.strength = value;
+      }
     }, 'bloom-val');
 
     setupSlider('param-glow', (value) => {
@@ -1181,8 +1397,27 @@
     material.uniforms.uCameraPos.value.copy(camera.position);
     material.uniforms.uCameraMatrix.value.copy(camera.matrixWorld);
 
-    composer.render();
+    renderFrame();
   }
 
-  init();
+  async function bootstrap() {
+    try {
+      loadingScreen = document.getElementById('loading-screen');
+      loadingCopy = document.getElementById('loading-copy');
+      setLoadingState('Painting the shell before starting WebGL.');
+      await waitForFirstPaint();
+      setLoadingState('Loading the core renderer.');
+      await loadCoreRendererModules();
+      setLoadingState('Compiling shaders.');
+      init();
+    } catch (error) {
+      console.error(error);
+      setLoadingState('Renderer startup failed. Reload to try again.');
+    }
+  }
+
+  bindPanelToggles();
+  afterIdle(() => {
+    void bootstrap();
+  });
 </script>
