@@ -9,8 +9,8 @@
     "preview": "astro preview",
     "check": "astro check",
     "astro": "astro",
-    "deploy": "bun run build && npx wrangler deploy",
-    "deploy:dry-run": "npx wrangler deploy --dry-run",
+    "deploy": "bun run build && npx wrangler deploy --config dist/server/wrangler.json",
+    "deploy:dry-run": "bun run build && npx wrangler deploy --dry-run --config dist/server/wrangler.json",
     "cf:status": "../scripts/cf-portfolio.sh status fractal-lab",
     "lint": "oxlint",
     "format": "oxfmt",
@@ -18,7 +18,7 @@
     "lint:fix": "oxlint --fix . && oxfmt"
   },
   "dependencies": {
-    "astro": "^6.1.7",
+    "astro": "^6.1.8",
     "three": "^0.184.0"
   },
   "devDependencies": {
