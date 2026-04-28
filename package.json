@@ -18,16 +18,17 @@
     "lint:fix": "oxlint --fix . && oxfmt"
   },
   "dependencies": {
-    "astro": "^6.1.8",
-    "three": "^0.184.0"
+    "astro": "6.1.10",
+    "three": "^0.184.0",
+    "wrangler": "4.86.0"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.8",
-    "@astrojs/cloudflare": "^13.1.10",
+    "@astrojs/check": "0.9.9",
+    "@astrojs/cloudflare": "13.2.2",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
-    "oxfmt": "^0.46.0",
-    "oxlint": "^1.61.0",
+    "oxfmt": "0.47.0",
+    "oxlint": "1.62.0",
     "typescript": "^6.0.3"
   },
   "lint-staged": {
